@@ -2,7 +2,7 @@
 import csv
 
 ################ MATRIZ RESPUESTA #########################
-def cargar_matriz_csv(nombre_archivo):
+def cargar_matriz_csv(nombre_archivo: str) -> list:
     matriz = []  
     
     with open(nombre_archivo, newline='') as archivo_csv:
@@ -17,7 +17,7 @@ def cargar_matriz_csv(nombre_archivo):
 
 ############################# TABLERO #######################
 
-def mostrar_matriz_console(matriz):
+def mostrar_matriz_console(matriz: list) -> None:
     for fila in matriz:
         linea = []
         
@@ -30,7 +30,10 @@ def mostrar_matriz_console(matriz):
                 linea.append("X")
         print(" ".join(linea))
 
-def marcar_celda(matriz_jugador, coordenadas, accion):
+def marcar_celda(matriz_jugador: list, 
+                coordenadas: tuple, 
+                accion: str) -> None:
+    
     fila, columna = coordenadas  
     
     if accion == "negro":
@@ -41,7 +44,7 @@ def marcar_celda(matriz_jugador, coordenadas, accion):
         matriz_jugador[fila][columna] = 0
 
 
-def crear_matriz_vacia(filas, columnas):
+def crear_matriz_vacia(filas: int, columnas: int) -> list:
     matriz_vacia = []
     
     for _ in range(filas):
@@ -51,7 +54,7 @@ def crear_matriz_vacia(filas, columnas):
 
 ######################## PISTAS ###############
 
-def cargar_pistas_csv(nombre_archivo):
+def cargar_pistas_csv(nombre_archivo: str) -> list:
     pistas = []   
     
     with open(nombre_archivo, newline='') as archivo:
@@ -65,7 +68,8 @@ def cargar_pistas_csv(nombre_archivo):
     return pistas
 
 
-def mostrar_pistas_filas(pistas):
+def mostrar_pistas_filas(pistas: list) -> list:
+    
     for pista in pistas:
         linea = ""
         for num in pista:
@@ -74,7 +78,7 @@ def mostrar_pistas_filas(pistas):
     return pistas
 
 
-def mostrar_pistas_columnas(pistas):
+def mostrar_pistas_columnas(pistas: list) -> list:
     for pista in pistas:
         linea = ""
         for num in pista:
@@ -84,7 +88,11 @@ def mostrar_pistas_columnas(pistas):
 
 ######################### RANKING #######################
 
-def guardar_ranking(nombre_archivo, nombre_jugador, tiempo, estado):
+def guardar_ranking(nombre_archivo: str, 
+                    nombre_jugador: str, 
+                    tiempo: float, 
+                    estado: str) -> None:
+    
     with open(nombre_archivo, "a") as archivo:
         linea = ""
         fila = [nombre_jugador, tiempo, estado]
@@ -97,7 +105,7 @@ def guardar_ranking(nombre_archivo, nombre_jugador, tiempo, estado):
         archivo.write(linea + "\n")
 
 
-def leer_ranking(nombre_archivo):
+def leer_ranking(nombre_archivo: str) -> list:
     ranking = []
     
     with open(nombre_archivo, 'r', newline='') as archivo:

@@ -3,7 +3,7 @@ from paquete.funciones import *
 from paquete.validaciones import validar_fila_columna, validar_accion, comprobar_jugada_tablero, verificar_gano_perdio
 import time
 
-def jugar(nombre):
+def jugar(nombre: str) -> tuple:
     
     tiempo_inicio = time.time()
     matriz_jugador = crear_matriz_vacia(4, 12)
