@@ -3,14 +3,20 @@ import csv
 
 ################ MATRIZ RESPUESTA #########################
 
-def cargar_matriz_csv(nombre_archivo: str) -> tuple:
-    matriz = []
+def cargar_matriz_csv(nombre_archivo: str) -> list:
+    matriz = []  
+    
     with open(nombre_archivo, newline='') as archivo_csv:
         lector = csv.reader(archivo_csv)
         for fila in lector:
-            fila_convertida = tuple(int(valor) for valor in fila)  # tupla
-            matriz.append(fila_convertida)
-    return tuple(matriz) 
+            fila_convertida = []  
+            for valor in fila:
+                numero = int(valor)
+                fila_convertida.append(numero)
+            matriz.append(fila_convertida)  
+    return matriz  
+
+
 
 ############################# TABLERO #######################
 
