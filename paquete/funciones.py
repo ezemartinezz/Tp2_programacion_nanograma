@@ -2,22 +2,19 @@
 import csv
 
 ################ MATRIZ RESPUESTA #########################
-def cargar_matriz_csv(nombre_archivo: str) -> list:
-    matriz = []  
-    
+
+def cargar_matriz_csv(nombre_archivo: str) -> tuple:
+    matriz = []
     with open(nombre_archivo, newline='') as archivo_csv:
         lector = csv.reader(archivo_csv)
-        for fila in lector:  
-            fila_convertida = []        
-            for valor in fila:          
-                numero = int(valor)   
-                fila_convertida.append(numero)  
-            matriz.append(fila_convertida)  
-    return matriz
+        for fila in lector:
+            fila_convertida = tuple(int(valor) for valor in fila)  # tupla
+            matriz.append(fila_convertida)
+    return tuple(matriz) 
 
 ############################# TABLERO #######################
 
-def mostrar_matriz_console(matriz: list) -> None:
+def mostrar_matriz_console(matriz: tuple) -> None:
     for fila in matriz:
         linea = []
         
@@ -29,6 +26,7 @@ def mostrar_matriz_console(matriz: list) -> None:
             elif celda == 2:
                 linea.append("X")
         print(" ".join(linea))
+
 
 def marcar_celda(matriz_jugador: list, 
                 coordenadas: tuple, 
@@ -92,17 +90,15 @@ def guardar_ranking(nombre_archivo: str,
                     nombre_jugador: str, 
                     tiempo: float, 
                     estado: str) -> None:
-    
     with open(nombre_archivo, "a") as archivo:
-        linea = ""
-        fila = [nombre_jugador, tiempo, estado]
         
-        for i in range(len(fila)):
-            linea += str(fila[i])
-            
-            if i < (len(fila) - 1):
-                linea += ","
-        archivo.write(linea + "\n")
+        registro = {
+            "nombre": nombre_jugador,
+            "tiempo": tiempo,
+            "estado": estado
+        }
+        cargar_registro = (f"{registro['nombre']},{registro['tiempo']},{registro['estado']}\n")
+        archivo.write(cargar_registro)
 
 
 def leer_ranking(nombre_archivo: str) -> list:
@@ -115,4 +111,6 @@ def leer_ranking(nombre_archivo: str) -> list:
             tiempo = float(fila[1])
             estado = fila[2]
             ranking.append((nombre_jugador, tiempo, estado))
-    return ranking
+            
+    ranking_ordenado = sorted(ranking, key=lambda x: x[1])
+    return ranking_ordenado

@@ -23,6 +23,7 @@ def jugar(nombre: str) -> tuple:
         print("\n=== TABLERO ===")
         mostrar_matriz_console(matriz_jugador)
         
+        
         print("Ingrese las coordenadas y la acción que desea realizar")
         fila = int(input("Fila: "))
         fila = validar_fila_columna(3, fila)

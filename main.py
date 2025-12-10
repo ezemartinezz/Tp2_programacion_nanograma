@@ -2,7 +2,6 @@
 from paquete.funciones import *
 from paquete.etapas import *
 
-
 bandera = True
 
 while bandera:
